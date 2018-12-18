@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: peer-registry
+eureka:
+  instance:
+    appname: peer-registry
+peer:
+  vcloud:
+    host: peer-registry-vcloud
+    port: 8761
+  azure:
+    host: peer-registry-azure
+    port: 8762
+
+---
+spring:
+  profiles: vcloud
+server:
+  port: ${peer.vcloud.port}
+eureka:
+  instance:
+    hostname: ${peer.vcloud.host}
+  client:
+    serviceUrl:
+      defaultZone: http://${peer.azure.host}:${peer.azure.port}/eureka
+    fetchRegistry: true
+    registerWithEureka: true
+
+---
+spring:
+  profiles: azure
+server:
+  port: ${peer.azure.port}
+eureka:
+  instance:
+    hostname: ${peer.azure.host}
+  client:
+    serviceUrl:
+      defaultZone: http://${peer.vcloud.host}:${peer.vcloud.port}/eureka
+    fetchRegistry: true
+    registerWithEureka: true
