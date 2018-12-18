@@ -6,10 +6,10 @@ eureka:
     appname: peer-registry
 peer:
   vcloud:
-    host: peer-registry-vcloud
+    host: peer-vcloud
     port: 8761
   azure:
-    host: peer-registry-azure
+    host: peer-azure
     port: 8762
 
 ---
