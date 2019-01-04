@@ -5,12 +5,27 @@ eureka:
   instance:
     appname: peer-registry
 peer:
+  default:
+    host: localhost
+    port: 8762
   vcloud:
     host: peer-vcloud
     port: 8761
   azure:
     host: peer-azure
     port: 8762
+
+---
+spring:
+  profiles: default
+server:
+  port: ${peer.default.port}
+eureka:
+  instance:
+    hostname: ${peer.default.host}
+  client:
+    fetchRegistry: false
+    registerWithEureka: false
 
 ---
 spring:
